@@ -18,13 +18,11 @@ public class DBUtils {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	private final String DB_URL;
-
 	private final String DB_USER;
 
 	private final String DB_PASS;
 
-	private final String DB_URL = "jdbc:mysql://localhost:3306/IMS?db_name&serverTimezone=UTC";
+	private String DB_URL = "jdbc:mysql://localhost:3306/IMS?db_name&serverTimezone=UTC";
 
 	private DBUtils(String username, String password) {
 		this.DB_USER = username;
