@@ -25,12 +25,15 @@ public class IMS {
 	}
 
 	public void imsSystem() {
+		//grabs username and password and connects
 		LOGGER.info("Welcome to the Inventory Management System!");
 		LOGGER.info("Please enter database username:");
 		String user = utils.getString();
 		LOGGER.info("Please enter database password:");
 		String password = utils.getString();
 		DBUtils.connect(user, password);
+		//creates databases and enters data
+		DBUtils.getInstance().init("src/main/resources/sql-schema.sql", "src/main/resources/sql-data.sql");
 
 		Domain domain = null;
 		do {
@@ -54,6 +57,8 @@ public class IMS {
 				active = this.customers;
 				break;
 			case ITEM:
+				//activate when resolved
+				//active = this.items;
 				active = null;
 				break;
 			case ORDER:
