@@ -1,83 +1,79 @@
-//package com.qa.ims.controller;
-//
-//import java.util.List;
-//
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
-//
-//import com.qa.ims.persistence.dao.CustomerDAO;
-//import com.qa.ims.persistence.domain.Customer;
-//import com.qa.ims.utils.Utils;
-//
-///**
-// * Takes in customer details for CRUD functionality
-// *
-// */
-//public class ItemController implements CrudController<Item> {
-//
-//	public static final Logger LOGGER = LogManager.getLogger();
-//
-//	private CustomerDAO customerDAO;
-//	private Utils utils;
-//
-//	public CustomerController(CustomerDAO customerDAO, Utils utils) {
-//		super();
-//		this.customerDAO = customerDAO;
-//		this.utils = utils;
-//	}
-//
-//	/**
-//	 * Reads all customers to the logger
-//	 */
-//	@Override
-//	public List<Customer> readAll() {
-//		List<Customer> customers = customerDAO.readAll();
-//		for (Customer customer : customers) {
-//			LOGGER.info(customer.toString());
-//		}
-//		return customers;
-//	}
-//
-//	/**
-//	 * Creates a customer by taking in user input
-//	 */
-//	@Override
-//	public Customer create() {
-//		LOGGER.info("Please enter a first name");
-//		String firstName = utils.getString();
-//		LOGGER.info("Please enter a surname");
-//		String surname = utils.getString();
-//		Customer customer = customerDAO.create(new Customer(firstName, surname));
-//		LOGGER.info("Customer created");
-//		return customer;
-//	}
-//
-//	/**
-//	 * Updates an existing customer by taking in user input
-//	 */
-//	@Override
-//	public Customer update() {
-//		LOGGER.info("Please enter the id of the customer you would like to update");
-//		Long id = utils.getLong();
-//		LOGGER.info("Please enter a first name");
-//		String firstName = utils.getString();
-//		LOGGER.info("Please enter a surname");
-//		String surname = utils.getString();
-//		Customer customer = customerDAO.update(new Customer(id, firstName, surname));
-//		LOGGER.info("Customer Updated");
-//		return customer;
-//	}
-//
-//	/**
-//	 * Deletes an existing customer by the id of the customer
-//	 * 
-//	 * @return
-//	 */
-//	@Override
-//	public int delete() {
-//		LOGGER.info("Please enter the id of the customer you would like to delete");
-//		Long id = utils.getLong();
-//		return customerDAO.delete(id);
-//	}
-//
-//}
+package com.qa.ims.controller;
+
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.qa.ims.persistence.dao.ItemDAO;
+import com.qa.ims.persistence.domain.Item;
+import com.qa.ims.utils.Utils;
+
+/**
+ * Takes in item details for CRUD functionality
+ *
+ */
+public class ItemController implements CrudController<Item> {
+
+	public static final Logger LOGGER = LogManager.getLogger();
+
+	private ItemDAO itemDAO;
+	private Utils utils;
+
+	public ItemController(ItemDAO itemDAO, Utils utils) {
+		super();
+		this.itemDAO = itemDAO;
+		this.utils = utils;
+	}
+
+	/**
+	 * Reads all items to the logger
+	 */
+	@Override
+	public List<Item> readAll() {
+		List<Item> items = itemDAO.readAll();
+		for (Item item : items) {
+			LOGGER.info(item.toString());
+		}
+		return items;
+	}
+
+	/**
+	 * Creates a item by taking in user input
+	 */
+	@Override
+	public Item create() {
+		LOGGER.info("Please enter a name");
+		String name = utils.getString();
+		Item item = itemDAO.create(new Item(name));
+		LOGGER.info("Item created");
+		return item;
+	}
+
+	/**
+	 * Updates an existing item by taking in user input
+	 */
+	@Override
+	public Item update() {
+		LOGGER.info("Please enter the id of the item you would like to update");
+		Long id = utils.getLong();
+		LOGGER.info("Please enter a name");
+		String name = utils.getString();
+		Item item = itemDAO.update(new Item(id, name));
+		LOGGER.info("Item Updated");
+		return item;
+	}
+
+	/**
+	 * Deletes an existing item by the id of the item
+	 * 
+	 * @return
+	 */
+	@Override
+	public int delete() {
+		LOGGER.info("Please enter the id of the item you would like to delete");
+		Long id = utils.getLong();
+		return itemDAO.delete(id);
+	}
+
+}
