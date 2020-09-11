@@ -26,7 +26,11 @@ public class IMS {
 
 	public void imsSystem() {
 		LOGGER.info("Welcome to the Inventory Management System!");
-		DBUtils.connect();
+		LOGGER.info("Please enter database username:");
+		String user = utils.getString();
+		LOGGER.info("Please enter database password:");
+		String password = utils.getString();
+		DBUtils.connect(user, password);
 
 		Domain domain = null;
 		do {
