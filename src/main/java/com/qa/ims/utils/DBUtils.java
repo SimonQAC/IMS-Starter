@@ -1,14 +1,11 @@
 package com.qa.ims.utils;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
 import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
@@ -22,28 +19,17 @@ public class DBUtils {
 
 	private final String DB_PASS;
 
-	private String DB_URL = "jdbc:mysql://localhost:3306/IMS?db_name&serverTimezone=UTC";
+	private final String DB_URL = "jdbc:mysql://localhost:3306/ims?db_name&serverTimezone=UTC";
 
 	private DBUtils(String username, String password) {
 		this.DB_USER = username;
 		this.DB_PASS = password;
+
 		init();
 	}
-	private DBUtils(String properties) {
-		Properties dbProps = new Properties();
-		try (InputStream fis = new FileInputStream(properties)) {
-			dbProps.load(fis);
-		} catch (Exception e) {
-			LOGGER.error(e);
-		}
-		this.DB_URL = dbProps.getProperty("db.url", "");
-		this.DB_USER = dbProps.getProperty("db.user", "");
-		this.DB_PASS = dbProps.getProperty("db.password", "");
 
-	}
-
-	public DBUtils() {
-		this("src/main/resources/db.properties");
+	public int init() {
+		return this.init("src/main/resources/sql-schema.sql", "src/main/resources/sql-data.sql");
 	}
 
 	public int init(String... paths) {
@@ -82,19 +68,14 @@ public class DBUtils {
 
 	public static DBUtils instance;
 
-	public static DBUtils connect() {
-		instance = new DBUtils();
-		return instance;
-	}
-
-	public static DBUtils connect(String properties) {
-		instance = new DBUtils(properties);
+	public static DBUtils connect(String username, String password) {
+		instance = new DBUtils(username, password);
 		return instance;
 	}
 
 	public static DBUtils getInstance() {
 		if (instance == null) {
-			instance = new DBUtils();
+			instance = new DBUtils("", "");
 		}
 		return instance;
 	}
