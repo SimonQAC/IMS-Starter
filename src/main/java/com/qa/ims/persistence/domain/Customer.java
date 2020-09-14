@@ -2,7 +2,7 @@ package com.qa.ims.persistence.domain;
 
 public class Customer {
 
-	private Long id;
+	private Long cid;
 	private String firstName;
 	private String surname;
 
@@ -11,18 +11,18 @@ public class Customer {
 		this.setSurname(surname);
 	}
 
-	public Customer(Long id, String firstName, String surname) {
-		this.setId(id);
+	public Customer(Long cid, String firstName, String surname) {
+		this.setCid(cid);
 		this.setFirstName(firstName);
 		this.setSurname(surname);
 	}
 
-	public Long getId() {
-		return id;
+	public Long getCid() {
+		return cid;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setCid(Long cid) {
+		this.cid = cid;
 	}
 
 	public String getFirstName() {
@@ -43,15 +43,15 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "id:" + id + " first name:" + firstName + " surname:" + surname;
+		return "cid:" + cid + " first name:" + firstName + " surname:" + surname;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((cid == null) ? 0 : cid.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
 		return result;
 	}
@@ -65,15 +65,15 @@ public class Customer {
 		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
-		if (getFirstName() == null) {
-			if (other.getFirstName() != null)
+		if (cid == null) {
+			if (other.cid != null)
 				return false;
-		} else if (!getFirstName().equals(other.getFirstName()))
+		} else if (!cid.equals(other.cid))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if (firstName == null) {
+			if (other.firstName != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!firstName.equals(other.firstName))
 			return false;
 		if (surname == null) {
 			if (other.surname != null)
@@ -82,5 +82,7 @@ public class Customer {
 			return false;
 		return true;
 	}
+
+
 
 }

@@ -2,7 +2,7 @@ package com.qa.ims.persistence.domain;
 
 public class Item {
 
-	private Long id;
+	private Long iid;
 	private String name;
 	private Double price;
 	
@@ -11,23 +11,23 @@ public class Item {
 		this.setPrice(price);
 	}
 	
-	public Item(Long id, String name, Double price) {
-		this.setId(id);
+	public Item(Long iid, String name, Double price) {
+		this.setIid(iid);
 		this.setName(name);
 		this.setPrice(price);
 	}
 	
 	@Override
 	public String toString() {
-		return "Item [id=" + id + ", name=" + name + ", price=" + price + "]";
+		return "Item [iid=" + iid + ", name=" + name + ", price=" + price + "]";
 	}
 
-	public Long getId() {
-		return id;
+	public Long getIid() {
+		return iid;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIid(Long iid) {
+		this.iid = iid;
 	}
 
 	public String getName() {
@@ -55,8 +55,9 @@ public class Item {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((iid == null) ? 0 : iid.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((price == null) ? 0 : price.hashCode());
 		return result;
 	}
 
@@ -69,17 +70,24 @@ public class Item {
 		if (getClass() != obj.getClass())
 			return false;
 		Item other = (Item) obj;
-		if (getName() == null) {
-			if (other.getName() != null)
+		if (iid == null) {
+			if (other.iid != null)
 				return false;
-		} else if (!getName().equals(other.getName()))
+		} else if (!iid.equals(other.iid))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!name.equals(other.name))
+			return false;
+		if (price == null) {
+			if (other.price != null)
+				return false;
+		} else if (!price.equals(other.price))
 			return false;
 		return true;
 	}
+
+
 
 }
