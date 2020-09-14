@@ -4,6 +4,15 @@ public class Item {
 
 	private Long id;
 	private String name;
+	
+	public Item(String name) {
+		this.setName(name);
+	}
+	
+	public Item(Long id, String name) {
+		this.setId(id);
+		this.setName(name);
+	}
 
 	public Long getId() {
 		return id;

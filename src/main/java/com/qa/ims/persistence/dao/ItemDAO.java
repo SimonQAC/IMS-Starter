@@ -21,7 +21,7 @@ public class ItemDAO implements Dao<Item> {
 	public Item modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long id = resultSet.getLong("id");
 		String name = resultSet.getString("name");
-		return new Item();
+		return new Item(id, name);
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class ItemDAO implements Dao<Item> {
 	public Item create(Item item) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("INSERT INTO items(name) values('" + item.getName());
+			statement.executeUpdate("INSERT INTO items(name) values('" + item.getName() + "')");
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e);
