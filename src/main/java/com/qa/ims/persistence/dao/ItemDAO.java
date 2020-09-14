@@ -19,10 +19,10 @@ public class ItemDAO implements Dao<Item> {
 
 	@Override
 	public Item modelFromResultSet(ResultSet resultSet) throws SQLException {
-		Long id = resultSet.getLong("id");
+		Long iid = resultSet.getLong("iid");
 		String name = resultSet.getString("name");
 		Double price = resultSet.getDouble("price");
-		return new Item(id, name, price);
+		return new Item(iid, name, price);
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class ItemDAO implements Dao<Item> {
 	public Item readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM items ORDER BY id DESC LIMIT 1");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM items ORDER BY iid DESC LIMIT 1");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -65,7 +65,7 @@ public class ItemDAO implements Dao<Item> {
 	/**
 	 * Creates an item in the database
 	 * 
-	 * @param item - takes in an item object. id will be ignored
+	 * @param item - takes in an item object. iid will be ignored
 	 */
 	@Override
 	public Item create(Item item) {
@@ -80,10 +80,10 @@ public class ItemDAO implements Dao<Item> {
 		return null;
 	}
 
-	public Item readItem(Long id) {
+	public Item readItem(Long iid) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM items where id = " + id);) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM items where iid = " + iid);) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class ItemDAO implements Dao<Item> {
 	/**
 	 * Updates an item in the database
 	 * 
-	 * @param item - takes in an item object, the id field will be used to
+	 * @param item - takes in an item object, the iid field will be used to
 	 *                 update that item in the database
 	 * @return
 	 */
@@ -104,8 +104,8 @@ public class ItemDAO implements Dao<Item> {
 	public Item update(Item item) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("update items set name ='" + item.getName() + "', " + "price = " + item.getPrice() + " where id =" + item.getId());
-			return readItem(item.getId());
+			statement.executeUpdate("update items set name ='" + item.getName() + "', " + "price = " + item.getPrice() + " where iid =" + item.getIid());
+			return readItem(item.getIid());
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
@@ -116,13 +116,13 @@ public class ItemDAO implements Dao<Item> {
 	/**
 	 * Deletes an item in the database
 	 * 
-	 * @param id - id of the item
+	 * @param iid - iid of the item
 	 */
 	@Override
-	public int delete(long id) {
+	public int delete(long iid) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			return statement.executeUpdate("delete from items where id = " + id);
+			return statement.executeUpdate("delete from items where iid = " + iid);
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
