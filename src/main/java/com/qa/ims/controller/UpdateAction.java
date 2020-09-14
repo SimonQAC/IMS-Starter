@@ -11,8 +11,8 @@ import com.qa.ims.utils.Utils;
  *
  */
 public enum UpdateAction {
-	DEL("Del: Remove an item from an existing order"), ADD("Add: Add an item to an existing order"),
-	IID("Iid: UpdateAction Item ID"), CID("Cid: UpdateAction Customer ID"), QTY("Qty: UpdateAction Quantity"), 
+	ADD("Add an item to an existing order"), DEL("Remove an item from an existing order"), 
+	IID("UpdateAction Item ID"), CID("UpdateAction Customer ID"), QTY("UpdateAction Quantity"), 
 	RETURN("To return to domain selection");
 
 	public static final Logger LOGGER = LogManager.getLogger();

@@ -6,6 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.persistence.dao.OrderDAO;
+import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.Utils;
 
@@ -58,39 +59,47 @@ public class OrderController implements CrudController<Order> {
 
 	/**
 	 * Updates an existing order by taking in user input
+	 * @return 
 	 */
 	@Override
 	public Order update() {
-		LOGGER.info("WHAT WOULD YOU LIKE TO UPDATE?");
-		LOGGER.info("Qty: Update Quantity");
-		LOGGER.info("Cid: Update Customer ID");
-		LOGGER.info("Iid: Update Item ID");
-		LOGGER.info("Add: Add an item to an existing order");
-		LOGGER.info("Del: Remove an item from an existing order");
-		OrderUpdateController OCU = new OrderUpdateController();
-		switch (utils.getString().toUpperCase()) {
-		case "DEL":
-			OCU.removeFromOrder();
-			break;
-		default:
-			LOGGER.info("No match found");
-			break;
-		};
-		return null;
-		
-		//old update code
-		//		LOGGER.info("Please enter the oid of the order you would like to update");
-//		Long oid = utils.getLong();
-//		LOGGER.info("Please enter a cid");
-//		Long cid = utils.getLong();
-//		LOGGER.info("Please enter an iid");
-//		Long iid = utils.getLong();
-//		LOGGER.info("Please enter quantity");
-//		Long quantity = utils.getLong();
-//		Order order = orderDAO.update(new Order(oid, cid, iid, quantity));
-//		LOGGER.info("Order Updated");
+		UpdateAction updateAction = null;
+		do {
+			LOGGER.info("Which update would you like to perform?");
+			UpdateAction.printUpdateActions();
 
+			updateAction = UpdateAction.getUpdateAction(utils);
+
+			updateAction(updateAction);
+
+		} while (updateAction != UpdateAction.RETURN);
+		return null;
 	}
+		
+	private void updateAction(UpdateAction updateAction) {
+			LOGGER.info(updateAction);
+			switch (updateAction) {
+			case DEL:
+				LOGGER.info("test");
+				break;
+			case ADD:
+				LOGGER.info("test");
+				break;
+			case IID:
+				LOGGER.info("test");
+				break;
+			case CID:
+				LOGGER.info("test");
+				break;
+			case QTY:
+				LOGGER.info("test");
+				break;
+			default:
+				LOGGER.info("Bad Input");
+				break;
+			}
+		}
+
 
 	/**
 	 * Deletes an existing order by the id of the order
