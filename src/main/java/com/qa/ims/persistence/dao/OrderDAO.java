@@ -114,6 +114,21 @@ public class OrderDAO implements Dao<Order> {
 		return null;
 	}
 
+	
+	// removes an item from an order
+	public Order updateRemoveFromOrder(Order order, Long oid, Long iid) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("DELETE FROM orders WHERE oid ='" + order.getOid() + "', iid = '" + order.getIid() + "')");
+			return readItem(order.getOid());
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+	
+	
 	/**
 	 * Deletes an order in the database
 	 * 

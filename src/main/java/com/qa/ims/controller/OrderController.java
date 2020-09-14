@@ -43,6 +43,8 @@ public class OrderController implements CrudController<Order> {
 	 */
 	@Override
 	public Order create() {
+		LOGGER.info("NOTE: THIS ONLY CREATES THE ORDER FOR ONE ITEM AND QUANTITY");
+		LOGGER.info("NOTE: TO ADD MULTIPLE ITEMS PLEASE UPDATE ORDER AFTER CREATION");
 		LOGGER.info("Please enter a cid");
 		Long cid = utils.getLong();
 		LOGGER.info("Please enter an iid");
@@ -59,17 +61,35 @@ public class OrderController implements CrudController<Order> {
 	 */
 	@Override
 	public Order update() {
-		LOGGER.info("Please enter the oid of the order you would like to update");
-		Long oid = utils.getLong();
-		LOGGER.info("Please enter a cid");
-		Long cid = utils.getLong();
-		LOGGER.info("Please enter an iid");
-		Long iid = utils.getLong();
-		LOGGER.info("Please enter quantity");
-		Long quantity = utils.getLong();
-		Order order = orderDAO.update(new Order(oid, cid, iid, quantity));
-		LOGGER.info("Order Updated");
-		return order;
+		LOGGER.info("WHAT WOULD YOU LIKE TO UPDATE?");
+		LOGGER.info("Qty: Update Quantity");
+		LOGGER.info("Cid: Update Customer ID");
+		LOGGER.info("Iid: Update Item ID");
+		LOGGER.info("Add: Add an item to an existing order");
+		LOGGER.info("Del: Remove an item from an existing order");
+		OrderUpdateController OCU = new OrderUpdateController();
+		switch (utils.getString().toUpperCase()) {
+		case "DEL":
+			OCU.removeFromOrder();
+			break;
+		default:
+			LOGGER.info("No match found");
+			break;
+		};
+		return null;
+		
+		//old update code
+		//		LOGGER.info("Please enter the oid of the order you would like to update");
+//		Long oid = utils.getLong();
+//		LOGGER.info("Please enter a cid");
+//		Long cid = utils.getLong();
+//		LOGGER.info("Please enter an iid");
+//		Long iid = utils.getLong();
+//		LOGGER.info("Please enter quantity");
+//		Long quantity = utils.getLong();
+//		Order order = orderDAO.update(new Order(oid, cid, iid, quantity));
+//		LOGGER.info("Order Updated");
+
 	}
 
 	/**
