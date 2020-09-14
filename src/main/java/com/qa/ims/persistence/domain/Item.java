@@ -4,14 +4,22 @@ public class Item {
 
 	private Long id;
 	private String name;
+	private Double price;
 	
-	public Item(String name) {
+	public Item(String name, Double price) {
 		this.setName(name);
+		this.setPrice(price);
 	}
 	
-	public Item(Long id, String name) {
+	public Item(Long id, String name, Double price) {
 		this.setId(id);
 		this.setName(name);
+		this.setPrice(price);
+	}
+	
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", name=" + name + ", price=" + price + "]";
 	}
 
 	public Long getId() {
@@ -30,9 +38,17 @@ public class Item {
 		this.name = name;
 	}
 
-	@Override
-	public String toString() {
-		return "Item [id=" + id + ", name=" + name + "]";
+	public Double getPrice() {
+		return price;
+	}
+	
+	public String getPriceStr() {
+		String priceStr = Double.toString(price);
+		return priceStr;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
 	}
 
 	@Override
