@@ -22,7 +22,7 @@ public class OrderDAO implements Dao<Order> {
 		Long oid = resultSet.getLong("oid");
 		Long iid = resultSet.getLong("iid");
 		Long cid = resultSet.getLong("cid");
-		Int quantity = resultSet.getInt("quantity");
+		Long quantity = resultSet.getLong("quantity");
 		return new Order(oid, iid, cid, quantity);
 	}
 
@@ -53,7 +53,7 @@ public class OrderDAO implements Dao<Order> {
 	public Order readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY id DESC LIMIT 1");) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY oid DESC LIMIT 1");) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -72,7 +72,7 @@ public class OrderDAO implements Dao<Order> {
 	public Order create(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("INSERT INTO orders(name, price) values('" + order.getName() + "', " + order.getPriceStr() + ")");
+			statement.executeUpdate("INSERT INTO orders(iid, cid, quantity) values('" + order.getIid() + "', " + order.getCid() + ", " + order.getQuantity() + ")");
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e);
@@ -81,10 +81,10 @@ public class OrderDAO implements Dao<Order> {
 		return null;
 	}
 
-	public Order readItem(Long id) {
+	public Order readItem(Long oid) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders where id = " + id);) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM orders where oid = " + oid);) {
 			resultSet.next();
 			return modelFromResultSet(resultSet);
 		} catch (Exception e) {
@@ -105,8 +105,8 @@ public class OrderDAO implements Dao<Order> {
 	public Order update(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("update orders set name ='" + order.getName() + "', " + "price = " + order.getPrice() + " where id =" + order.getId());
-			return readItem(order.getId());
+			statement.executeUpdate("update orders set iid ='" + order.getIid() + "', cid = '" + order.getCid() + "', quantity = '" + order.getQuantity() + "' where oid = '" + order.getOid() + "'");
+			return readItem(order.getOid());
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
@@ -120,10 +120,10 @@ public class OrderDAO implements Dao<Order> {
 	 * @param id - id of the order
 	 */
 	@Override
-	public int delete(long id) {
+	public int delete(long oid) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			return statement.executeUpdate("delete from orders where id = " + id);
+			return statement.executeUpdate("delete from orders where oid = " + oid);
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());

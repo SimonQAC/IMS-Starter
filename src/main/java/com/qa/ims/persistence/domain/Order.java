@@ -5,11 +5,22 @@ public class Order {
 	private Long oid;
 	private Long cid;
 	private Long iid;
-	private int quantity;
+	private Long quantity;
 
 	
-
+	public Order(Long cid, Long iid, Long quantity) {
+		this.setCid(cid);
+		this.setIid(iid);
+		this.setQuantity(quantity);
+	}
 	
+	public Order(Long oid, Long cid, Long iid, Long quantity) {
+		this.setOid(oid);
+		this.setCid(cid);
+		this.setIid(iid);
+		this.setQuantity(quantity);
+	}
+		
 	public Long getOid() {
 		return oid;
 	}
@@ -34,12 +45,17 @@ public class Order {
 		this.iid = iid;
 	}
 
-	public int getQuantity() {
+	public Long getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Long quantity) {
 		this.quantity = quantity;
+	}
+	
+	@Override
+	public String toString() {
+		return "Order [oid=" + oid + ", cid=" + cid + ", iid=" + iid + ", quantity=" + quantity + "]";
 	}
 
 	@Override
@@ -49,7 +65,7 @@ public class Order {
 		result = prime * result + ((cid == null) ? 0 : cid.hashCode());
 		result = prime * result + ((iid == null) ? 0 : iid.hashCode());
 		result = prime * result + ((oid == null) ? 0 : oid.hashCode());
-		result = prime * result + quantity;
+		result = prime * result + ((quantity == null) ? 0 : quantity.hashCode());
 		return result;
 	}
 
@@ -77,10 +93,17 @@ public class Order {
 				return false;
 		} else if (!oid.equals(other.oid))
 			return false;
-		if (quantity != other.quantity)
+		if (quantity == null) {
+			if (other.quantity != null)
+				return false;
+		} else if (!quantity.equals(other.quantity))
 			return false;
 		return true;
 	}
+
+
+
+
 
 
 
