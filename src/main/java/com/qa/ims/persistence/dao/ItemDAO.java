@@ -70,7 +70,7 @@ public class ItemDAO implements Dao<Item> {
 	public Item create(Item item) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("INSERT INTO items(name) values('" + item.getName());
+			statement.executeUpdate("INSERT INTO items(name) values('" + item.getName() + "')");
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e);
