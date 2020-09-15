@@ -14,18 +14,12 @@ CREATE TABLE IF NOT EXISTS `ims`.`items` (
     PRIMARY KEY (`iid`)
 );
 CREATE TABLE IF NOT EXISTS `ims`.`orders` (
-    `ioid` INT(11) NOT NULL AUTO_INCREMENT,
-    `oid` INT(11) NOT NULL,
-    `quantity` INT(11) NOT NULL,
+    `oid` INT(11) NOT NULL AUTO_INCREMENT,
     `cid`INT(11) NOT NULL,
-    `iid` INT(11) NOT NULL,
     FOREIGN KEY (cid) REFERENCES ims.customers (cid)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-    FOREIGN KEY (iid) REFERENCES ims.items (iid)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-    PRIMARY KEY (`ioid`)
+    PRIMARY KEY (`oid`)
 );
 
 

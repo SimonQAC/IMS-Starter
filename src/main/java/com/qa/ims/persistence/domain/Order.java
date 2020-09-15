@@ -7,7 +7,14 @@ public class Order {
 	private Long iid;
 	private Long quantity;
 
-	
+	public Order(Long cid) {
+		this.setCid(cid);
+	}
+	public Order(Long oid, Long cid) {
+		this.setOid(oid);
+		this.setCid(cid);
+	}
+		
 	public Order(Long cid, Long iid, Long quantity) {
 		this.setCid(cid);
 		this.setIid(iid);
@@ -55,7 +62,7 @@ public class Order {
 	
 	@Override
 	public String toString() {
-		return "Order [oid=" + oid + ", cid=" + cid + ", iid=" + iid + ", quantity=" + quantity + "]";
+		return "Order [oid=" + oid + ", cid=" + cid + "]";
 	}
 
 	@Override

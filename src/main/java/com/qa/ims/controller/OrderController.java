@@ -44,15 +44,11 @@ public class OrderController implements CrudController<Order> {
 	 */
 	@Override
 	public Order create() {
-		LOGGER.info("NOTE: THIS ONLY CREATES THE ORDER FOR ONE ITEM AND QUANTITY");
+		LOGGER.info("NOTE: THIS ONLY CREATES AN EMPTY ORDER ASSOCIATED TO A CID");
 		LOGGER.info("NOTE: TO ADD MULTIPLE ITEMS PLEASE UPDATE ORDER AFTER CREATION");
 		LOGGER.info("Please enter a cid");
 		Long cid = utils.getLong();
-		LOGGER.info("Please enter an iid");
-		Long iid = utils.getLong();
-		LOGGER.info("Please enter quantity");
-		Long quantity = utils.getLong();
-		Order order = orderDAO.create(new Order(iid, cid, quantity));
+		Order order = orderDAO.create(new Order(cid));
 		LOGGER.info("Order created");
 		return order;
 	}

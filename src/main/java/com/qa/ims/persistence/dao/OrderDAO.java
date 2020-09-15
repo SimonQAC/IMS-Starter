@@ -20,10 +20,8 @@ public class OrderDAO implements Dao<Order> {
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long oid = resultSet.getLong("oid");
-		Long iid = resultSet.getLong("iid");
 		Long cid = resultSet.getLong("cid");
-		Long quantity = resultSet.getLong("quantity");
-		return new Order(oid, iid, cid, quantity);
+		return new Order(oid, cid);
 	}
 
 	/**
@@ -64,15 +62,36 @@ public class OrderDAO implements Dao<Order> {
 	}
 
 	/**
-	 * Creates an order in the database
+	 * Creates an order in a new database
 	 * 
 	 * @param order - takes in an order object. id will be ignored
 	 */
 	@Override
+//	public Order create(Order order) {
+//		try (Connection connection = DBUtils.getInstance().getConnection();
+//				Statement statement = connection.createStatement();) {
+//			statement.executeUpdate("INSERT INTO orders(iid, cid, quantity) values('" + order.getIid() + "', " + order.getCid() + ", " + order.getQuantity() + ")");
+//			return readLatest();
+//		} catch (Exception e) {
+//			LOGGER.debug(e);
+//			LOGGER.error(e.getMessage());
+//		}
+//		return null;
+//	}
+
 	public Order create(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("INSERT INTO orders(iid, cid, quantity) values('" + order.getIid() + "', " + order.getCid() + ", " + order.getQuantity() + ")");
+			statement.executeUpdate("INSERT INTO orders (oid, cid) values (" + order.getOid() + ", " + order.getCid() + " );");
+			return readLatest();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("CREATE TABLE IF NOT EXISTS `ims`.`order" + order.getOid() + "` (`oid` INT(11) NOT NULL AUTO_INCREMENT, `cid` INT(11) NOT NULL, PRIMARY KEY (oid), FOREIGN KEY (cid) REFERENCES ims.customers (cid) ON DELETE CASCADE ON UPDATE CASCADE);");
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e);
@@ -80,6 +99,9 @@ public class OrderDAO implements Dao<Order> {
 		}
 		return null;
 	}
+	
+	
+	//reads individual item from database
 
 	public Order readItem(Long oid) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
