@@ -68,20 +68,20 @@ public class OrderController implements CrudController<Order> {
 
 			updateAction = UpdateAction.getUpdateAction(utils);
 
-			updateAction(updateAction);
+			updateAction(null, updateAction);
 
 		} while (updateAction != UpdateAction.RETURN);
 		return null;
 	}
 		
-	private void updateAction(UpdateAction updateAction) {
+	private void updateAction(DaoU<?> DaoU, UpdateAction updateAction) {
 			LOGGER.info(updateAction);
 			switch (updateAction) {
 			case DEL:
-				LOGGER.info("test");
+
 				break;
 			case ADD:
-				LOGGER.info("test");
+
 				break;
 			case IID:
 				LOGGER.info("test");
