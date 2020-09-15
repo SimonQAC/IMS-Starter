@@ -17,8 +17,13 @@ public class OrderUpdateController implements UpdateController<Order>{
 	private Utils utils;
 	@Override
 	public List<Order> removeFromOrder() {
-		
-		return null;
+//		LOGGER.info("Please enter Order id");
+//		Long oid = utils.getLong();
+//		LOGGER.info("Please enter Item id to remove from order");
+//		Long iid = utils.getLong();
+//		Order order = orderDAO.updateRemoveFromOrder(null, oid, iid);
+//		LOGGER.info("Order Updated");
+//		return null;
 	}
 	@Override
 	public Order addToOrder() {

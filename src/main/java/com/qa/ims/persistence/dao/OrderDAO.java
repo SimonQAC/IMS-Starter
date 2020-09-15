@@ -116,10 +116,23 @@ public class OrderDAO implements Dao<Order> {
 
 	
 	// removes an item from an order
-	public Order updateRemoveFromOrder(Order order, Long oid, Long iid) {
+	public Order updateRemoveFromOrder(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("DELETE FROM orders WHERE oid ='" + order.getOid() + "', iid = '" + order.getIid() + "')");
+			statement.executeUpdate("DELETE FROM orders WHERE oid =" + order.getOid() + " AND iid=" + order.getIid());
+			return readItem(order.getOid());
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+	
+	//adds an item to an order
+	public Order addToOrder(Order order) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("insert into orders (oid, iid, quantity) values (" + order.getOid() + ", " + order.getIid() + ", " + order.getQuantity() + ")");
 			return readItem(order.getOid());
 		} catch (Exception e) {
 			LOGGER.debug(e);
