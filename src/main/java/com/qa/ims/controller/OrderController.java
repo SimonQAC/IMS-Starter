@@ -76,22 +76,22 @@ public class OrderController implements CrudController<Order> {
 			LOGGER.info(updateAction);
 			switch (updateAction) {
 			case DEL:
-				LOGGER.info("Please enter Order id");
-				Long oid = utils.getLong();
-				LOGGER.info("Please enter Item id to remove from order");
-				Long iid = utils.getLong();
-				Order order = orderDAO.updateRemoveFromOrder(new Order(oid,null, iid, null));
-				LOGGER.info("Order Updated");
+//				LOGGER.info("Please enter Order id");
+//				Long oid = utils.getLong();
+//				LOGGER.info("Please enter Item id to remove from order");
+//				Long iid = utils.getLong();
+//				Order order = orderDAO.updateRemoveFromOrder(new Order(oid,null, iid, null));
+//				LOGGER.info("Order Updated");
 				break;
 			case ADD:
-				LOGGER.info("Please enter Order id");
-				Long oid2 = utils.getLong();
-				LOGGER.info("Please enter Item id to add to order");
-				Long iid2 = utils.getLong();
-				LOGGER.info("Please enter quantity to add to order");
-				Long quantity2 = utils.getLong();
-				Order order2 = orderDAO.addToOrder(new Order(oid2, null, iid2, quantity2));
-				LOGGER.info("Order Updated");
+//				LOGGER.info("Please enter Order id");
+//				Long oid2 = utils.getLong();
+//				LOGGER.info("Please enter Item id to add to order");
+//				Long iid2 = utils.getLong();
+//				LOGGER.info("Please enter quantity to add to order");
+//				Long quantity2 = utils.getLong();
+//				Order order2 = orderDAO.addToOrder(new Order(oid2, null, iid2, quantity2));
+//				LOGGER.info("Order Updated");
 				break;
 			case IID:
 				LOGGER.info("test");
