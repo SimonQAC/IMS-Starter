@@ -83,21 +83,14 @@ public class OrderDAO implements Dao<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("INSERT INTO orders (oid, cid) values (" + order.getOid() + ", " + order.getCid() + " );");
-			return readLatest();
-		} catch (Exception e) {
-			LOGGER.debug(e);
-			LOGGER.error(e.getMessage());
-		}
-
-		try (Connection connection = DBUtils.getInstance().getConnection();
-				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("CREATE TABLE IF NOT EXISTS `ims`.`order" + order.getOid() + "` (`oid` INT(11) NOT NULL AUTO_INCREMENT, `cid` INT(11) NOT NULL, PRIMARY KEY (oid), FOREIGN KEY (cid) REFERENCES ims.customers (cid) ON DELETE CASCADE ON UPDATE CASCADE);");
+			//statement.executeUpdate("CREATE TABLE IF NOT EXISTS `ims`.`order" + oid + "` (`oid` INT(11) NOT NULL , `cid` INT(11) NOT NULL, FOREIGN KEY (oid) REFERENCES ims.orders (oid) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (cid) REFERENCES ims.customers (cid) ON DELETE CASCADE ON UPDATE CASCADE);");
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
 		return null;
+
 	}
 	
 	
@@ -137,31 +130,9 @@ public class OrderDAO implements Dao<Order> {
 //	}
 
 	
-	// removes an item from an order
-//	public Order updateRemoveFromOrder(Order order) {
-//		try (Connection connection = DBUtils.getInstance().getConnection();
-//				Statement statement = connection.createStatement();) {
-//			statement.executeUpdate("DELETE FROM orders WHERE oid =" + order.getOid() + " AND iid=" + order.getIid());
-//			return readItem(order.getOid());
-//		} catch (Exception e) {
-//			LOGGER.debug(e);
-//			LOGGER.error(e.getMessage());
-//		}
-//		return null;
-//	}
+
 	
-	//adds an item to an order
-//	public Order addToOrder(Order order) {
-//		try (Connection connection = DBUtils.getInstance().getConnection();
-//				Statement statement = connection.createStatement();) {
-//			statement.executeUpdate("insert into orders (oid, iid, quantity) values (" + order.getOid() + ", " + order.getIid() + ", " + order.getQuantity() + ")");
-//			return readItem(order.getOid());
-//		} catch (Exception e) {
-//			LOGGER.debug(e);
-//			LOGGER.error(e.getMessage());
-//		}
-//		return null;
-//	}
+
 	
 	
 	/**
