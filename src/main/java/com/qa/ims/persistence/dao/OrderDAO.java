@@ -83,7 +83,6 @@ public class OrderDAO implements Dao<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
 			statement.executeUpdate("INSERT INTO orders (oid, cid) values (" + order.getOid() + ", " + order.getCid() + " );");
-			//statement.executeUpdate("CREATE TABLE IF NOT EXISTS `ims`.`order" + oid + "` (`oid` INT(11) NOT NULL , `cid` INT(11) NOT NULL, FOREIGN KEY (oid) REFERENCES ims.orders (oid) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (cid) REFERENCES ims.customers (cid) ON DELETE CASCADE ON UPDATE CASCADE);");
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e);
