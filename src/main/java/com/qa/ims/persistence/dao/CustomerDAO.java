@@ -130,4 +130,16 @@ public class CustomerDAO implements Dao<Customer> {
 		return 0;
 	}
 
+	@Override
+	public Customer addToOrder() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Customer updateRemoveFromOrder() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

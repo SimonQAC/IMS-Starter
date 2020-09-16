@@ -130,4 +130,16 @@ public class ItemDAO implements Dao<Item> {
 		return 0;
 	}
 
+	@Override
+	public Item addToOrder() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Item updateRemoveFromOrder() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

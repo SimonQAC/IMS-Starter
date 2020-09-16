@@ -5,9 +5,8 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.dao.DaoU;
+import com.qa.ims.persistence.dao.Dao;
 import com.qa.ims.persistence.dao.OrderDAO;
-import com.qa.ims.persistence.dao.OrderUpdateDAO;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.Utils;
@@ -74,28 +73,32 @@ public class OrderController implements CrudController<Order> {
 		return null;
 	}
 		
-	private void updateAction(DaoU<?> DaoU, UpdateAction updateAction) {
+	private Order updateAction(Dao<?> Dao, UpdateAction updateAction) {
 			LOGGER.info(updateAction);
-			OrderUpdateController OUC = new OrderUpdateController(null, utils, null);
 			switch (updateAction) {
 			case DEL:
-				OUC.updateRemoveFromOrder();
-				break;
+				LOGGER.info("Please enter oid to delete from");
+				Long oid = utils.getLong();
+				LOGGER.info("Please enter iid to delete from order");
+				Long iid = utils.getLong();
+				Order order = orderDAO.updateRemoveFromOrder(new Order(oid,iid));
+				LOGGER.info("Item removed from order");
+				return order;
 			case ADD:
-				OUC.addToOrder();
-				break;
-			case IID:
-				OUC.updateIid();
-				break;
-			case QTY:
-				OUC.updateQuantity();
-				break;
+				LOGGER.info("Please enter an oid to update");
+				Long oid2 = utils.getLong();
+				LOGGER.info("Please enter an iid to add to the order");
+				Long iid2 = utils.getLong();
+				LOGGER.info("Please enter a quantity to add to the order");
+				Long quantity2 = utils.getLong();
+				Order order2 = orderDAO.addToOrder(new Order(oid2, iid2, quantity2));
+				LOGGER.info("Item added to order");
+				return order2;
 			default:
 				LOGGER.info("Bad Input");
-				break;
+				return null;
 			}
 		}
-
 
 	/**
 	 * Deletes an existing order by the id of the order
