@@ -22,9 +22,9 @@ public class Order {
 	public Order(Long cid) {
 		this.setCid(cid);
 	}
-	public Order(Long oid, Long cid) {
+	public Order(Long oid, Long iid) {
 		this.setOid(oid);
-		this.setCid(cid);
+		this.setIid(iid);
 	}
 	public Order(Long oid2, Long iid2, Long quantity2) {
 		this.setOid(oid2);

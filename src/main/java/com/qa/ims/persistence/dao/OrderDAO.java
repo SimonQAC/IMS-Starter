@@ -67,17 +67,7 @@ public class OrderDAO implements Dao<Order> {
 	 * @param order - takes in an order object. id will be ignored
 	 */
 	@Override
-//	public Order create(Order order) {
-//		try (Connection connection = DBUtils.getInstance().getConnection();
-//				Statement statement = connection.createStatement();) {
-//			statement.executeUpdate("INSERT INTO orders(iid, cid, quantity) values('" + order.getIid() + "', " + order.getCid() + ", " + order.getQuantity() + ")");
-//			return readLatest();
-//		} catch (Exception e) {
-//			LOGGER.debug(e);
-//			LOGGER.error(e.getMessage());
-//		}
-//		return null;
-//	}
+
 
 	public Order create(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
@@ -148,7 +138,7 @@ public class OrderDAO implements Dao<Order> {
 	public Order updateRemoveFromOrder(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-					statement.executeUpdate("DELETE FROM orderline WHERE oid =" + order.getOid() + " AND iid=" + order.getIid());
+					statement.executeUpdate("DELETE FROM orderline WHERE oid = " + order.getOid() + " AND iid=" + order.getIid());
 					return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e);

@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.persistence.domain.Customer;
+import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.DBUtils;
 
 public class CustomerDAO implements Dao<Customer> {
@@ -130,15 +131,17 @@ public class CustomerDAO implements Dao<Customer> {
 		return 0;
 	}
 
+
+
 	@Override
-	public Customer addToOrder() {
-		// TODO Auto-generated method stub
+	public Order addToOrder(Order order) {
+		// unused
 		return null;
 	}
 
 	@Override
-	public Customer updateRemoveFromOrder() {
-		// TODO Auto-generated method stub
+	public Order updateRemoveFromOrder(Order order) {
+		// unused
 		return null;
 	}
 
