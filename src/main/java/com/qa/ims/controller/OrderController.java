@@ -76,21 +76,19 @@ public class OrderController implements CrudController<Order> {
 		
 	private void updateAction(DaoU<?> DaoU, UpdateAction updateAction) {
 			LOGGER.info(updateAction);
+			OrderUpdateController OUC = new OrderUpdateController(null, utils, null);
 			switch (updateAction) {
 			case DEL:
-
+				OUC.updateRemoveFromOrder();
 				break;
 			case ADD:
-
+				OUC.addToOrder();
 				break;
 			case IID:
-				LOGGER.info("test");
-				break;
-			case CID:
-				LOGGER.info("test");
+				OUC.updateIid();
 				break;
 			case QTY:
-				LOGGER.info("test");
+				OUC.updateQuantity();
 				break;
 			default:
 				LOGGER.info("Bad Input");

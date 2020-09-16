@@ -12,7 +12,7 @@ import com.qa.ims.utils.Utils;
  */
 public enum UpdateAction {
 	ADD("Add an item to an existing order"), DEL("Remove an item from an existing order"), 
-	IID("UpdateAction Item ID"), CID("UpdateAction Customer ID"), QTY("UpdateAction Quantity"), 
+	IID("UpdateAction Item ID"), QTY("UpdateAction Quantity"), 
 	RETURN("To return to domain selection");
 
 	public static final Logger LOGGER = LogManager.getLogger();

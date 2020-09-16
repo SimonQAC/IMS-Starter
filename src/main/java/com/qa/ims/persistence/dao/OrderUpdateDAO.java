@@ -6,30 +6,22 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantReadWriteLock.ReadLock;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.qa.ims.persistence.domain.Item;
-import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.persistence.domain.OrderUpdate;
 import com.qa.ims.utils.DBUtils;
-import com.qa.ims.utils.Utils;
 
-public static class OrderUpdateDAO implements DaoU<OrderUpdate> {
+public class OrderUpdateDAO implements DaoU<OrderUpdate> {
 	
 	public static final Logger LOGGER = LogManager.getLogger();
 
-	@Override
 	public OrderUpdate modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long iid = resultSet.getLong("iid");
 		Long oid = resultSet.getLong("oid");
 		Long quantity = resultSet.getLong("quantity");
-		Long cid = resultSet.getLong("cid");
-		return new OrderUpdate(iid, oid, quantity, cid);
+		return new OrderUpdate(iid, oid, quantity);
 	}
-	@Override
 	public List<OrderUpdate> readAll() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
@@ -46,7 +38,6 @@ public static class OrderUpdateDAO implements DaoU<OrderUpdate> {
 		return new ArrayList<>();
 	}
 
-	@Override
 	public OrderUpdate addToOrder(OrderUpdate orderUpdate) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 					Statement statement = connection.createStatement();) {
@@ -59,12 +50,11 @@ public static class OrderUpdateDAO implements DaoU<OrderUpdate> {
 			return null;
 	}
 
-	@Override
 	public OrderUpdate updateRemoveFromOrder(OrderUpdate orderUpdate) {
 	
 			try (Connection connection = DBUtils.getInstance().getConnection();
 					Statement statement = connection.createStatement();) {
-				statement.executeUpdate("DELETE FROM orders WHERE oid =" + orderUpdate.getOid() + " AND iid=" + orderUpdate.getIid());
+				statement.executeUpdate("DELETE FROM orderline WHERE oid =" + orderUpdate.getOid() + " AND iid=" + orderUpdate.getIid());
 				return readLatest();
 			} catch (Exception e) {
 				LOGGER.debug(e);
@@ -73,24 +63,30 @@ public static class OrderUpdateDAO implements DaoU<OrderUpdate> {
 			return null;
 	}
 
-	@Override
-	public OrderUpdate updateIid() {
-		// TODO Auto-generated method stub
+	public OrderUpdate updateIid(OrderUpdate orderUpdate) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("UPDATE orderline SET " + orderUpdate.getIid() +" WHERE oid = " + orderUpdate.getOid());
+			return readLatest();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
 		return null;
 	}
 
-	@Override
-	public OrderUpdate updateCid() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public OrderUpdate updateQuantity() {
-		// TODO Auto-generated method stub
+	public OrderUpdate updateQuantity(OrderUpdate orderUpdate) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("UPDATE orderline SET " + orderUpdate.getQuantity() +" WHERE oid = " + orderUpdate.getOid());
+			return readLatest();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
 		return null;
 	}
-	@Override
 	public OrderUpdate readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
@@ -103,6 +99,26 @@ public static class OrderUpdateDAO implements DaoU<OrderUpdate> {
 		}
 		return null;
 	}
+	public OrderUpdate addToOrder() {
+		LOGGER.info("you shouldn't be seeing this");
+		return null;
+	}
+	@Override
+	public OrderUpdate updateRemoveFromOrder() {
+		LOGGER.info("you shouldn't be seeing this");
+		return null;
+	}
+	@Override
+	public OrderUpdate updateIid() {
+		LOGGER.info("you shouldn't be seeing this");
+		return null;
+	}
+	@Override
+	public OrderUpdate updateQuantity() {
+		LOGGER.info("you shouldn't be seeing this");
+		return null;
+	}
+
 
 
 

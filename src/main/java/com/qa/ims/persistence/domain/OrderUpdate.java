@@ -3,21 +3,24 @@ package com.qa.ims.persistence.domain;
 public class OrderUpdate {
 
 	private Long oid;
-	private Long cid;
 	private Long iid;
 	private Long quantity;
 
-	public OrderUpdate(Long oid, Long cid, Long iid, Long quantity) {
+	public OrderUpdate(Long oid, Long iid, Long quantity) {
 		this.setOid(oid);
-		this.setCid(cid);
 		this.setIid(iid);
 		this.setQuantity(quantity);
+	}
+	
+	public OrderUpdate(Long oid, Long iid) {
+		this.setOid(oid);
+		this.setIid(iid);
 	}
 	
 	
 	@Override
 	public String toString() {
-		return "OrderUpdate [oid=" + oid + ", cid=" + cid + ", iid=" + iid + ", quantity=" + quantity + "]";
+		return "OrderUpdate [oid=" + oid + ", iid=" + iid + ", quantity=" + quantity + "]";
 	}
 
 
@@ -29,13 +32,6 @@ public class OrderUpdate {
 		this.oid = oid;
 	}
 
-	public Long getCid() {
-		return cid;
-	}
-
-	public void setCid(Long cid) {
-		this.cid = cid;
-	}
 
 	public Long getIid() {
 		return iid;
@@ -53,16 +49,17 @@ public class OrderUpdate {
 		this.quantity = quantity;
 	}
 
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cid == null) ? 0 : cid.hashCode());
 		result = prime * result + ((iid == null) ? 0 : iid.hashCode());
 		result = prime * result + ((oid == null) ? 0 : oid.hashCode());
 		result = prime * result + ((quantity == null) ? 0 : quantity.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -73,11 +70,6 @@ public class OrderUpdate {
 		if (getClass() != obj.getClass())
 			return false;
 		OrderUpdate other = (OrderUpdate) obj;
-		if (cid == null) {
-			if (other.cid != null)
-				return false;
-		} else if (!cid.equals(other.cid))
-			return false;
 		if (iid == null) {
 			if (other.iid != null)
 				return false;
@@ -95,6 +87,8 @@ public class OrderUpdate {
 			return false;
 		return true;
 	}
+
+
 	
 	
 }

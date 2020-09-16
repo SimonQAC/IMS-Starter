@@ -4,19 +4,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.qa.ims.persistence.domain.OrderUpdate;
+
 public interface DaoU<T> {
 
-	//add to order
-	
-	//delete from order
-	
-	//update cid
-	
-	//update iid
-	
-	//update quantity
-	
-	//modelfromresultset
+	OrderUpdate modelFromResultSet(ResultSet resultSet) throws SQLException;
+
+	List<OrderUpdate> readAll();
+
+	OrderUpdate addToOrder();
+
+	OrderUpdate updateRemoveFromOrder();
+
+	OrderUpdate updateIid();
+
+	OrderUpdate updateQuantity();
+
+	OrderUpdate readLatest();
+
+
 
 
 
