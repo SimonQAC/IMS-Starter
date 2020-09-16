@@ -146,5 +146,21 @@ public class OrderDAO implements Dao<Order> {
 		}
 		return null;
 	}
+	
+	public List<Order> readOrderLine() {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery("select orderline.oid,orders.cid,orderline.iid,orderline.quantity,items.name,items.price, quantity*price as total from orders, orderline, items where orders.oid = orderline.oid and items.iid = orderline.iid order by orders.oid;");) {
+			List<Order> orders = new ArrayList<>();
+			while (resultSet.next()) {
+				orders.add(modelFromResultSet(resultSet));
+			}
+			return orders;
+		} catch (SQLException e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return new ArrayList<>();
+	}
 
 }

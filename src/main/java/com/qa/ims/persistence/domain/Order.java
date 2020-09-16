@@ -13,11 +13,8 @@ public class Order {
 	public String toString() {
 		return "Order [oid=" + oid + ", cid=" + cid + ", iid=" + iid + ", quantity=" + quantity + "]";
 	}
-	public Long getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(Long quantity) {
-		this.quantity = quantity;
+	public Order() {
+		
 	}
 	public Order(Long cid) {
 		this.setCid(cid);
@@ -48,6 +45,12 @@ public class Order {
 	}
 	public void setIid(Long iid) {
 		this.iid = iid;
+	}
+	public Long getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Long quantity) {
+		this.quantity = quantity;
 	}
 	@Override
 	public int hashCode() {

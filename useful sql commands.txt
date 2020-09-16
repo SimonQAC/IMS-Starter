@@ -5,7 +5,7 @@ select * from orders, orderline, items where orders.oid = orderline.oid and item
 shows oid, cid, iid, quantity, name, price, total
 select orderline.oid,orders.cid,orderline.iid,orderline.quantity,items.name,items.price, quantity*price as total from orders, orderline, items where orders.oid = orderline.oid and items.iid = orderline.iid order by orders.oid;
 
-gives total value for all orders
+gives total value for all orders with the id 1
 select sum(quantity*price) as total from orders, orderline, items where orders.oid = orderline.oid and items.iid and orders.oid =1;
 
 gives all info on the order with the id 2
