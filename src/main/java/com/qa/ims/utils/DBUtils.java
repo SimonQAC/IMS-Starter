@@ -19,6 +19,9 @@ public class DBUtils extends Utils {
 
 	private final String DB_PASS;
 
+	//gcp login currently not working
+	//private final String DB_URL = "jdbc:mysql://34.105.237.235/ims-speppitt:europe-west2:ims-db?db_name&serverTimezone=UTC";
+	//localhost login
 	private final String DB_URL = "jdbc:mysql://localhost:3306/ims?db_name&serverTimezone=UTC";
 
 	private DBUtils(String username, String password) {
