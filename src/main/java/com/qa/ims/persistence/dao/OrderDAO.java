@@ -20,10 +20,8 @@ public class OrderDAO implements Dao<Order> {
 	@Override
 	public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
 		Long oid = resultSet.getLong("oid");
-		Long iid = resultSet.getLong("iid");
 		Long cid = resultSet.getLong("cid");
-		Long quantity = resultSet.getLong("quantity");
-		return new Order(oid, iid, cid, quantity);
+		return new Order(oid, cid);
 	}
 
 	/**
@@ -64,22 +62,27 @@ public class OrderDAO implements Dao<Order> {
 	}
 
 	/**
-	 * Creates an order in the database
+	 * Creates an order in a new database
 	 * 
 	 * @param order - takes in an order object. id will be ignored
 	 */
 	@Override
+
+
 	public Order create(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("INSERT INTO orders(iid, cid, quantity) values('" + order.getIid() + "', " + order.getCid() + ", " + order.getQuantity() + ")");
+			statement.executeUpdate("INSERT INTO orders (oid, cid) values (" + order.getOid() + ", " + order.getCid() + " );");
 			return readLatest();
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
 		}
 		return null;
+
 	}
+	
+	//reads individual item from database
 
 	public Order readItem(Long oid) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
@@ -93,54 +96,6 @@ public class OrderDAO implements Dao<Order> {
 		}
 		return null;
 	}
-
-	/**
-	 * Updates an order in the database
-	 * 
-	 * @param order - takes in an order object, the id field will be used to
-	 *                 update that order in the database
-	 * @return
-	 */
-	@Override
-	public Order update(Order order) {
-		try (Connection connection = DBUtils.getInstance().getConnection();
-				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("update orders set iid ='" + order.getIid() + "', cid = '" + order.getCid() + "', quantity = '" + order.getQuantity() + "' where oid = '" + order.getOid() + "'");
-			return readItem(order.getOid());
-		} catch (Exception e) {
-			LOGGER.debug(e);
-			LOGGER.error(e.getMessage());
-		}
-		return null;
-	}
-
-	
-	// removes an item from an order
-	public Order updateRemoveFromOrder(Order order) {
-		try (Connection connection = DBUtils.getInstance().getConnection();
-				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("DELETE FROM orders WHERE oid =" + order.getOid() + " AND iid=" + order.getIid());
-			return readItem(order.getOid());
-		} catch (Exception e) {
-			LOGGER.debug(e);
-			LOGGER.error(e.getMessage());
-		}
-		return null;
-	}
-	
-	//adds an item to an order
-	public Order addToOrder(Order order) {
-		try (Connection connection = DBUtils.getInstance().getConnection();
-				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("insert into orders (oid, iid, quantity) values (" + order.getOid() + ", " + order.getIid() + ", " + order.getQuantity() + ")");
-			return readItem(order.getOid());
-		} catch (Exception e) {
-			LOGGER.debug(e);
-			LOGGER.error(e.getMessage());
-		}
-		return null;
-	}
-	
 	
 	/**
 	 * Deletes an order in the database
@@ -157,6 +112,39 @@ public class OrderDAO implements Dao<Order> {
 			LOGGER.error(e.getMessage());
 		}
 		return 0;
+	}
+	
+	
+
+	@Override
+	public Order update(Order t) {
+		LOGGER.info("You shouldn't be updating here");
+		return null;
+	}
+
+	public Order addToOrder(Order order) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();) {
+					statement.executeUpdate("insert into orderline (oid, iid, quantity) values (" + order.getOid() + ", " + order.getIid() + ", " + order.getQuantity() + ")");
+			return readLatest();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+
+	@Override
+	public Order updateRemoveFromOrder(Order order) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();) {
+					statement.executeUpdate("DELETE FROM orderline WHERE oid = " + order.getOid() + " AND iid=" + order.getIid());
+					return readLatest();
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
 	}
 
 }

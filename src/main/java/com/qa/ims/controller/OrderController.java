@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.qa.ims.persistence.dao.Dao;
 import com.qa.ims.persistence.dao.OrderDAO;
 import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.persistence.domain.Order;
@@ -44,15 +45,11 @@ public class OrderController implements CrudController<Order> {
 	 */
 	@Override
 	public Order create() {
-		LOGGER.info("NOTE: THIS ONLY CREATES THE ORDER FOR ONE ITEM AND QUANTITY");
+		LOGGER.info("NOTE: THIS ONLY CREATES AN EMPTY ORDER ASSOCIATED TO A CID");
 		LOGGER.info("NOTE: TO ADD MULTIPLE ITEMS PLEASE UPDATE ORDER AFTER CREATION");
 		LOGGER.info("Please enter a cid");
 		Long cid = utils.getLong();
-		LOGGER.info("Please enter an iid");
-		Long iid = utils.getLong();
-		LOGGER.info("Please enter quantity");
-		Long quantity = utils.getLong();
-		Order order = orderDAO.create(new Order(iid, cid, quantity));
+		Order order = orderDAO.create(new Order(cid));
 		LOGGER.info("Order created");
 		return order;
 	}
@@ -70,48 +67,38 @@ public class OrderController implements CrudController<Order> {
 
 			updateAction = UpdateAction.getUpdateAction(utils);
 
-			updateAction(updateAction);
+			updateAction(null, updateAction);
 
 		} while (updateAction != UpdateAction.RETURN);
 		return null;
 	}
 		
-	private void updateAction(UpdateAction updateAction) {
+	private Order updateAction(Dao<?> Dao, UpdateAction updateAction) {
 			LOGGER.info(updateAction);
 			switch (updateAction) {
 			case DEL:
-				LOGGER.info("Please enter Order id");
+				LOGGER.info("Please enter oid to delete from");
 				Long oid = utils.getLong();
-				LOGGER.info("Please enter Item id to remove from order");
+				LOGGER.info("Please enter iid to delete from order");
 				Long iid = utils.getLong();
-				Order order = orderDAO.updateRemoveFromOrder(new Order(oid,null, iid, null));
-				LOGGER.info("Order Updated");
-				break;
+				Order order = orderDAO.updateRemoveFromOrder(new Order(oid,iid));
+				LOGGER.info("Item removed from order");
+				return order;
 			case ADD:
-				LOGGER.info("Please enter Order id");
+				LOGGER.info("Please enter an oid to update");
 				Long oid2 = utils.getLong();
-				LOGGER.info("Please enter Item id to add to order");
+				LOGGER.info("Please enter an iid to add to the order");
 				Long iid2 = utils.getLong();
-				LOGGER.info("Please enter quantity to add to order");
+				LOGGER.info("Please enter a quantity to add to the order");
 				Long quantity2 = utils.getLong();
-				Order order2 = orderDAO.addToOrder(new Order(oid2, null, iid2, quantity2));
-				LOGGER.info("Order Updated");
-				break;
-			case IID:
-				LOGGER.info("test");
-				break;
-			case CID:
-				LOGGER.info("test");
-				break;
-			case QTY:
-				LOGGER.info("test");
-				break;
+				Order order2 = orderDAO.addToOrder(new Order(oid2, iid2, quantity2));
+				LOGGER.info("Item added to order");
+				return order2;
 			default:
 				LOGGER.info("Bad Input");
-				break;
+				return null;
 			}
 		}
-
 
 	/**
 	 * Deletes an existing order by the id of the order

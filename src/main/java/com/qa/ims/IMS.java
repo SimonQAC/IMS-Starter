@@ -35,16 +35,7 @@ public class IMS {
 	}
 
 	public void imsSystem() {
-		//grabs username and password and connects
 		LOGGER.info("Welcome to the Inventory Management System!");
-		
-		//old login system
-		
-//		LOGGER.info("Please enter database username:");
-//		String user = utils.getString();
-//		LOGGER.info("Please enter database password:");
-//		String password = utils.getString();
-		
 		//new login system
 		String user = DBUtils.getLogin();
 		String password = DBUtils.getPassword();
