@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.persistence.dao.Dao;
 import com.qa.ims.persistence.dao.OrderDAO;
-import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.Utils;
 
@@ -31,14 +30,14 @@ public class OrderController implements CrudController<Order> {
 	/**
 	 * Reads all orders to the logger
 	 */
-	@Override
-	public List<Order> readAll() {
-		List<Order> orders = orderDAO.readAll();
-		for (Order order : orders) {
-			LOGGER.info(order.toString());
-		}
-		return orders;
-	}
+//	@Override
+//	public List<Order> readAll() {
+//		List<Order> orders = orderDAO.readAll();
+//		for (Order order : orders) {
+//			LOGGER.info(order.toString());
+//		}
+//		return orders;
+//	}
 
 	/**
 	 * Creates a order by taking in user input
@@ -94,6 +93,8 @@ public class OrderController implements CrudController<Order> {
 				Order order2 = orderDAO.addToOrder(new Order(oid2, iid2, quantity2));
 				LOGGER.info("Item added to order");
 				return order2;
+			case RETURN:
+				return null;
 			default:
 				LOGGER.info("Bad Input");
 				return null;
@@ -110,6 +111,36 @@ public class OrderController implements CrudController<Order> {
 		LOGGER.info("Please enter the oid of the order you would like to delete");
 		Long oid = utils.getLong();
 		return orderDAO.delete(oid);
+	}
+
+	@Override
+	public List<Order> readAll() {
+		ReadAction readAction = null;
+		do {
+			LOGGER.info("Which read operation would you like to perform?");
+			ReadAction.printReadActions();
+
+			readAction = ReadAction.getReadAction(utils);
+
+			readAction(null, readAction);
+
+		} while (readAction != ReadAction.RETURN);
+		return null;
+	}
+	
+	private Order readAction(Dao<?> Dao, ReadAction readAction) {
+		LOGGER.info(readAction);
+		switch (readAction) {
+		case ALL:
+			return null;
+		case ORDER:
+			return null;
+		case RETURN:
+			return null;
+		default:
+			LOGGER.info("Bad Input");
+			return null;
+		}
 	}
 
 }
