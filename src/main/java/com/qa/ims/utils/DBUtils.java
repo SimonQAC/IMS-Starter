@@ -11,7 +11,7 @@ import java.util.stream.Stream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class DBUtils {
+public class DBUtils extends Utils {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
@@ -19,6 +19,9 @@ public class DBUtils {
 
 	private final String DB_PASS;
 
+	//gcp login currently not working
+	//private final String DB_URL = "jdbc:mysql:///34.105.237.235/?cloudSqlInstance=<ims-speppitt:europe-west2:ims-db>&socketFactory=com.google.cloud.sql.mysql.SocketFactory&db_name&serverTimezone=UTC";
+	//localhost login
 	private final String DB_URL = "jdbc:mysql://localhost:3306/ims?db_name&serverTimezone=UTC";
 
 	private DBUtils(String username, String password) {
@@ -78,6 +81,20 @@ public class DBUtils {
 			instance = new DBUtils("", "");
 		}
 		return instance;
+	}
+	
+	public static String getLogin() {
+		LOGGER.info("Please enter database username:");
+		Utils u = new Utils();
+		String user = u.getString();
+		return user;
+	}
+	
+	public static String getPassword() {
+		LOGGER.info("Please enter database password:");
+		Utils p = new Utils();
+		String password = p.getString();
+		return password;
 	}
 
 }
