@@ -1,7 +1,42 @@
-DROP TABLE IF EXISTS `customers`;
-CREATE TABLE IF NOT EXISTS `customers` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
+drop schema ims;
+CREATE SCHEMA IF NOT EXISTS `ims`;
+USE `ims` ;
+CREATE TABLE IF NOT EXISTS `ims`.`customers` (
+    `cid` INT(11) NOT NULL AUTO_INCREMENT,
     `first_name` VARCHAR(40) NULL DEFAULT NULL,
     `surname` VARCHAR(40) NULL DEFAULT NULL,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`cid`)
 );
+CREATE TABLE IF NOT EXISTS `ims`.`items` (
+    `iid` INT(11) NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(40) NULL DEFAULT NULL,
+    `price` DECIMAL(10,2) NOT NULL,
+    PRIMARY KEY (`iid`)
+);
+CREATE TABLE IF NOT EXISTS `ims`.`orders` (
+    `oid` INT(11) NOT NULL AUTO_INCREMENT,
+    `cid`INT(11) NOT NULL,
+    FOREIGN KEY (cid) REFERENCES ims.customers (cid)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    PRIMARY KEY (`oid`)
+);
+CREATE TABLE IF NOT EXISTS `ims`.`orderline` (
+`olid` INT NOT NULL AUTO_INCREMENT,
+`oid` INT NOT NULL,
+`iid` INT NOT NULL,
+`quantity` INT NOT NULL,
+PRIMARY KEY (`olid`),
+CONSTRAINT `oid_fk`
+  FOREIGN KEY (`oid`)
+  REFERENCES ims.orders (oid)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE,
+CONSTRAINT `iid_fk`
+  FOREIGN KEY (`iid`)
+  REFERENCES ims.items (iid)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE
+);
+
+
