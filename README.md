@@ -1,7 +1,7 @@
-Coverage: 34%
-# Project Title
+Coverage: 42.3%
+# Inventory Management System
 
-One Paragraph of project description goes here
+This is an inventory management system with CRUD functionality between four SQL tables, Customers, Items, Orders and Orderline. There is no more complicated way to put it.
 
 ## Getting Started
 
