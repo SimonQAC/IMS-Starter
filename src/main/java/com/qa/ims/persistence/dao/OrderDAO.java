@@ -174,12 +174,22 @@ public class OrderDAO implements Dao<Order> {
 			while (resultSet.next()) {
 				if (x == 0) {checkOid = resultSet.getLong(1);x=1;};
 		    	  if (checkOid == resultSet.getLong(1)) {
-				        System.out.println("----------Order " + resultSet.getString(1) + " ------------");
+		    		  String query2 ="select sum(quantity*price) as total from orders, orderline, items where orders.oid=orderline.oid and items.iid = orderline.iid and orders.oid =" + resultSet.getString(1);
+		    			try (Connection connection2 = DBUtils.getInstance().getConnection();
+		    					Statement statement2 = connection2.createStatement();
+		    					ResultSet resultSet2 = statement2.executeQuery(query2);){
+		    				while (resultSet2.next()) {
+		    					LOGGER.info("------- Order " + resultSet.getString(1) + " - Total Price " + resultSet2.getDouble(1) +  " ---------");
+		    					}
+		    			} catch (SQLException e) {
+		    				e.printStackTrace();
+		    			}
+
 		    	  };
-		        System.out.println("Order ID=" + resultSet.getString(1) + " Customer ID=" + resultSet.getString(2));
-		        System.out.println("Item ID=" + resultSet.getString(3) + " Price=" + resultSet.getString(6));
-		        System.out.println("Total =" + resultSet.getString(7));
-		        System.out.println();
+		        LOGGER.info("Order ID=" + resultSet.getString(1) + " Customer ID=" + resultSet.getString(2));
+		        LOGGER.info("Item ID=" + resultSet.getString(3) + " Price=" + resultSet.getString(6));
+		        LOGGER.info("Total =" + resultSet.getString(7));
+		        LOGGER.info("");
 		        if(checkOid == resultSet.getLong(1)) {
 		        checkOid = checkOid + 1;
 		        }
