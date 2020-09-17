@@ -169,13 +169,20 @@ public class OrderDAO implements Dao<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery(query);){
-		      int row = 0;
-		      while (resultSet.next()) {
-		        System.out.println("----------Row " + (++row) + " ------------");
+			int x = 0;
+			Long checkOid = null;
+			while (resultSet.next()) {
+				if (x == 0) {checkOid = resultSet.getLong(1);x=1;};
+		    	  if (checkOid == resultSet.getLong(1)) {
+				        System.out.println("----------Order " + resultSet.getString(1) + " ------------");
+		    	  };
 		        System.out.println("Order ID=" + resultSet.getString(1) + " Customer ID=" + resultSet.getString(2));
 		        System.out.println("Item ID=" + resultSet.getString(3) + " Price=" + resultSet.getString(6));
 		        System.out.println("Total =" + resultSet.getString(7));
 		        System.out.println();
+		        if(checkOid == resultSet.getLong(1)) {
+		        checkOid = checkOid + 1;
+		        }
 		      }
 		    } catch (SQLException e) {
 		      e.printStackTrace();
