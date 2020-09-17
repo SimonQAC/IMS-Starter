@@ -232,7 +232,18 @@ public class OrderDAO implements Dao<Order> {
 	}
 	
 	public Order readTotalPrice() {
-		LOGGER.info("test");
+		String query = "select sum(quantity*price) as total from orders, orderline, items where orders.oid=orderline.oid and items.iid = orderline.iid and orders.oid = orderline.oid;";
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery(query);){
+			while (resultSet.next()) {
+				LOGGER.info("-----GRAND TOTAL-----");
+		        LOGGER.info("Total=" + resultSet.getString(1));
+		        LOGGER.info("---------------------");
+		      }}
+		 catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }
