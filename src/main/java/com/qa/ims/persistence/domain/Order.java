@@ -19,8 +19,8 @@ public class Order {
 				+ ", price=" + price + ", total=" + total + "]";
 	}
 	public Order() {
+		
 	}
-
 	public Order(Long cid) {
 		this.setCid(cid);
 	}
@@ -35,19 +35,12 @@ public class Order {
 	}
 	public Order(Long oid, Long cid, Long iid, Long quantity, String name, float price, float total) {
 		this.setOid(oid);
-		System.out.println(oid);
 		this.setCid(cid);
-		System.out.println(cid);
 		this.setIid(iid);
-		System.out.println(iid);
 		this.setQuantity(quantity);
-		System.out.println(quantity);
 		this.setName(name);
-		System.out.println(name);
 		this.setPrice(price);
-		System.out.println(price);
 		this.setTotal(total);
-		System.out.println(total);
 	}
 	public Long getOid() {
 		return oid;

@@ -135,7 +135,11 @@ public class OrderController implements CrudController<Order> {
 			Order orders = orderDAO.readOrderLine();
 			return orders;
 		case ORDER:
-			return null;
+			LOGGER.info("Please enter the oid to read");
+			Long oid = utils.getLong();
+			Long iid = null;
+			Order orders2 = orderDAO.readIndividualOrder(new Order(oid, iid));
+			return orders2;
 		case TOTALPRICE:
 			return null;
 		case RETURN:

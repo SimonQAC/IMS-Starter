@@ -200,4 +200,23 @@ public class OrderDAO implements Dao<Order> {
 		return null;
 				
 	}
+	
+	public Order readIndividualOrder(Order order) {
+		String query = "select orderline.oid,orders.cid,orderline.iid,orderline.quantity,items.name,items.price, quantity*price as total from orders, orderline, items where orders.oid = orderline.oid and items.iid = orderline.iid and orderline.oid = 1 order by orders.oid;";
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet = statement.executeQuery(query);){
+			
+			while (resultSet.next()) {
+		        LOGGER.info("Order ID=" + resultSet.getString(1) + " Customer ID=" + resultSet.getString(2));
+		        LOGGER.info("Item ID=" + resultSet.getString(3) + " Price=" + resultSet.getString(6));
+		        LOGGER.info("Total =" + resultSet.getString(7));
+		        LOGGER.info(""); 
+		      }}
+		 catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 }
+}
+
