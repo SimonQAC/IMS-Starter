@@ -202,21 +202,38 @@ public class OrderDAO implements Dao<Order> {
 	}
 	
 	public Order readIndividualOrder(Order order) {
-		String query = "select orderline.oid,orders.cid,orderline.iid,orderline.quantity,items.name,items.price, quantity*price as total from orders, orderline, items where orders.oid = orderline.oid and items.iid = orderline.iid and orderline.oid = 1 order by orders.oid;";
+		String query = "select orderline.oid,orders.cid,orderline.iid,orderline.quantity,items.name,items.price, quantity*price as total from orders, orderline, items where orders.oid = orderline.oid and items.iid = orderline.iid and orderline.oid = "+ order.getOid() +" order by orders.oid;";
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
 				ResultSet resultSet = statement.executeQuery(query);){
-			
+			int x = 0;
 			while (resultSet.next()) {
-		        LOGGER.info("Order ID=" + resultSet.getString(1) + " Customer ID=" + resultSet.getString(2));
-		        LOGGER.info("Item ID=" + resultSet.getString(3) + " Price=" + resultSet.getString(6));
+				if( x == 0) {LOGGER.info("---- Order Info -----");LOGGER.info("Order ID=" + resultSet.getString(1) + " Customer ID=" + resultSet.getString(2));LOGGER.info("---------------------"); x =1;};
+		        LOGGER.info("Item ID=" + resultSet.getString(3) + " Quantity=" + resultSet.getString(4));
+		        LOGGER.info("Name =" + resultSet.getString(5) + " Price =" + resultSet.getString(6));
 		        LOGGER.info("Total =" + resultSet.getString(7));
-		        LOGGER.info(""); 
+		        LOGGER.info("--------------------");
 		      }}
 		 catch (SQLException e) {
 			e.printStackTrace();
 		}
+		  String query2 ="select sum(quantity*price) as total from orders, orderline, items where orders.oid=orderline.oid and items.iid = orderline.iid and orders.oid =" + order.getOid();
+			try (Connection connection2 = DBUtils.getInstance().getConnection();
+					Statement statement2 = connection2.createStatement();
+					ResultSet resultSet2 = statement2.executeQuery(query2);){
+				while (resultSet2.next()) {
+					LOGGER.info("Total Price " + resultSet2.getDouble(1));
+					LOGGER.info("--------------------");
+					}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		return null;
-}
+	}
+	
+	public Order readTotalPrice() {
+		LOGGER.info("test");
+		return null;
+	}
 }
 

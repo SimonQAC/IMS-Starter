@@ -140,8 +140,9 @@ public class OrderController implements CrudController<Order> {
 			Long iid = null;
 			Order orders2 = orderDAO.readIndividualOrder(new Order(oid, iid));
 			return orders2;
-		case TOTALPRICE:
-			return null;
+		case TOTAL:
+			Order orders3 = orderDAO.readTotalPrice();
+			return orders3;
 		case RETURN:
 			return null;
 		default:

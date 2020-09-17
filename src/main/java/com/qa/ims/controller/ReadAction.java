@@ -12,7 +12,7 @@ import com.qa.ims.utils.Utils;
  */
 public enum ReadAction {
 	ALL("Read all orders"), ORDER("In depth print out of an individual order"), 
-	TOTALPRICE("Prints total price of all orders") ,RETURN("To return to domain selection");
+	TOTAL("Prints total price of all orders") ,RETURN("To return to domain selection");
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
