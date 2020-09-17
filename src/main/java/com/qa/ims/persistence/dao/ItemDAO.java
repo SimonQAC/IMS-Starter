@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.persistence.domain.Item;
+import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.DBUtils;
 
 public class ItemDAO implements Dao<Item> {
@@ -129,5 +130,19 @@ public class ItemDAO implements Dao<Item> {
 		}
 		return 0;
 	}
+
+	@Override
+	public Order addToOrder(Order order) {
+		// unused
+		return null;
+	}
+
+	@Override
+	public Order updateRemoveFromOrder(Order order) {
+		// unused
+		return null;
+	}
+
+
 
 }
