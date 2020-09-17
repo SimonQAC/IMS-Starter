@@ -128,14 +128,11 @@ public class OrderController implements CrudController<Order> {
 		return null;
 	}
 	
-	private List<Order> readAction(Dao<?> Dao, ReadAction readAction) {
+	private Order readAction(Dao<?> Dao, ReadAction readAction) {
 		LOGGER.info(readAction);
 		switch (readAction) {
 		case ALL:
-			List<Order> orders = orderDAO.readOrderLine();
-			for (Order order : orders) {
-				LOGGER.info(order.toString());
-			}
+			Order orders = orderDAO.readOrderLine();
 			return orders;
 		case ORDER:
 			return null;

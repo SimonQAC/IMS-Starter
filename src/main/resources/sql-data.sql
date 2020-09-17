@@ -8,4 +8,5 @@ INSERT INTO `ims`.`orders` (`cid`) VALUES (1);
 INSERT INTO `ims`.`orders` (`cid`) VALUES (2);
 INSERT INTO `ims`.`orderline` (`oid`,`iid`,`quantity`) VALUES (1,1,1);
 INSERT INTO `ims`.`orderline` (`oid`,`iid`,`quantity`) VALUES (2,3,10);
+INSERT INTO `ims`.`orderline` (`oid`,`iid`,`quantity`) VALUES (1,2,10);
 

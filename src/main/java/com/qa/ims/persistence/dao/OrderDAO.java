@@ -147,20 +147,40 @@ public class OrderDAO implements Dao<Order> {
 		return null;
 	}
 	
-	public List<Order> readOrderLine() {
+	// old non working readorderline
+//	public List<Order> readOrderLine() {
+//		try (Connection connection = DBUtils.getInstance().getConnection();
+//				Statement statement = connection.createStatement();
+//				ResultSet resultSet = statement.executeQuery("select orderline.oid,orders.cid,orderline.iid,orderline.quantity,items.name,items.price, quantity*price as total from orders, orderline, items where orders.oid = orderline.oid and items.iid = orderline.iid order by orders.oid;");) {
+//			List<Order> orders = new ArrayList<>();
+//			while (resultSet.next()) {
+//				orders.add(modelFromResultSet(resultSet));
+//			}
+//			return orders;
+//		} catch (SQLException e) {
+//			LOGGER.debug(e);
+//			LOGGER.error(e.getMessage());
+//		}
+//		return new ArrayList<>();
+//	}
+	
+	public Order readOrderLine(){
+		String query = "select orderline.oid,orders.cid,orderline.iid,orderline.quantity,items.name,items.price, quantity*price as total from orders, orderline, items where orders.oid = orderline.oid and items.iid = orderline.iid order by orders.oid;";
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("select orderline.oid,orders.cid,orderline.iid,orderline.quantity,items.name,items.price, quantity*price as total from orders, orderline, items where orders.oid = orderline.oid and items.iid = orderline.iid order by orders.oid;");) {
-			List<Order> orders = new ArrayList<>();
-			while (resultSet.next()) {
-				orders.add(modelFromResultSet(resultSet));
-			}
-			return orders;
-		} catch (SQLException e) {
-			LOGGER.debug(e);
-			LOGGER.error(e.getMessage());
-		}
-		return new ArrayList<>();
+				ResultSet resultSet = statement.executeQuery(query);){
+		      int row = 0;
+		      while (resultSet.next()) {
+		        System.out.println("----------Row " + (++row) + " ------------");
+		        System.out.println("Order ID=" + resultSet.getString(1) + " Customer ID=" + resultSet.getString(2));
+		        System.out.println("Item ID=" + resultSet.getString(3) + " Price=" + resultSet.getString(6));
+		        System.out.println("Total =" + resultSet.getString(7));
+		        System.out.println();
+		      }
+		    } catch (SQLException e) {
+		      e.printStackTrace();
+		    }
+		return null;
+				
 	}
-
 }

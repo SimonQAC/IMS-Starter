@@ -6,16 +6,21 @@ public class Order {
 	private Long cid;
 	private Long iid;
 	private Long quantity;
+	private String name;
+	private float price;
+	private float total;
 	
 	
 
+
 	@Override
 	public String toString() {
-		return "Order [oid=" + oid + ", cid=" + cid + ", iid=" + iid + ", quantity=" + quantity + "]";
+		return "Order [oid=" + oid + ", cid=" + cid + ", iid=" + iid + ", quantity=" + quantity + ", name=" + name
+				+ ", price=" + price + ", total=" + total + "]";
 	}
 	public Order() {
-		
 	}
+
 	public Order(Long cid) {
 		this.setCid(cid);
 	}
@@ -27,6 +32,22 @@ public class Order {
 		this.setOid(oid2);
 		this.setIid(iid2);
 		this.setQuantity(quantity2);
+	}
+	public Order(Long oid, Long cid, Long iid, Long quantity, String name, float price, float total) {
+		this.setOid(oid);
+		System.out.println(oid);
+		this.setCid(cid);
+		System.out.println(cid);
+		this.setIid(iid);
+		System.out.println(iid);
+		this.setQuantity(quantity);
+		System.out.println(quantity);
+		this.setName(name);
+		System.out.println(name);
+		this.setPrice(price);
+		System.out.println(price);
+		this.setTotal(total);
+		System.out.println(total);
 	}
 	public Long getOid() {
 		return oid;
@@ -52,14 +73,36 @@ public class Order {
 	public void setQuantity(Long quantity) {
 		this.quantity = quantity;
 	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public float getPrice() {
+		return price;
+	}
+	public void setPrice(float price) {
+		this.price = price;
+	}
+	public float getTotal() {
+		return total;
+	}
+	public void setTotal(float total) {
+		this.total = total;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((cid == null) ? 0 : cid.hashCode());
 		result = prime * result + ((iid == null) ? 0 : iid.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((oid == null) ? 0 : oid.hashCode());
+		result = prime * result + Float.floatToIntBits(price);
 		result = prime * result + ((quantity == null) ? 0 : quantity.hashCode());
+		result = prime * result + Float.floatToIntBits(total);
 		return result;
 	}
 	@Override
@@ -81,20 +124,28 @@ public class Order {
 				return false;
 		} else if (!iid.equals(other.iid))
 			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
 		if (oid == null) {
 			if (other.oid != null)
 				return false;
 		} else if (!oid.equals(other.oid))
+			return false;
+		if (Float.floatToIntBits(price) != Float.floatToIntBits(other.price))
 			return false;
 		if (quantity == null) {
 			if (other.quantity != null)
 				return false;
 		} else if (!quantity.equals(other.quantity))
 			return false;
+		if (Float.floatToIntBits(total) != Float.floatToIntBits(other.total))
+			return false;
 		return true;
 	}
-
-		
+	
 	
 
 
