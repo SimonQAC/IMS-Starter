@@ -1,7 +1,7 @@
 Coverage: 42.3%
 # Inventory Management System
 
-This is an inventory management system with CRUD functionality between four SQL tables, Customers, Items, Orders and Orderline. There is no more complicated way to put it.
+This is an inventory management system with CRUD functionality between four SQL tables, Customers, Items, Orders and Orderline, which are hosted in a localhost SQL instance. There is no more complicated way to put it.
 
 ## Getting Started
 
@@ -9,7 +9,13 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+This Project was built and tested with:
+
+`java version "1.8.0_261"
+Java(TM) SE Runtime Environment (build 1.8.0_261-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.261-b12, mixed mode)`
+
+It has not been tested on any other versions of java, and hence, may not function
 
 ```
 Give examples
@@ -17,10 +23,11 @@ Give examples
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
+1. Download the latest relase IMS-Starter-0.0.1-with-dependencies.jar
+2. Open up a command line
+3. Navigate to the location with the jar file within the command line
+4. Execute the following command to run the program`java -jar ims-0.0.1-jar-with-dependencies.jar`
+5. Follow the prompts and type in the command line to make selections / input data
 ```
 Give the example
 ```
