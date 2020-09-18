@@ -9,9 +9,10 @@ This is an inventory management system with CRUD functionality between four SQL 
 
 This Project was built and tested with:
 
-```java version "1.8.0_261"```
-```Java(TM) SE Runtime Environment (build 1.8.0_261-b12)```
-```Java HotSpot(TM) 64-Bit Server VM (build 25.261-b12, mixed mode)```
+```java version "1.8.0_261"
+Java(TM) SE Runtime Environment (build 1.8.0_261-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.261-b12, mixed mode)
+```
 
 It has not been tested on any other versions of java, and hence, may not function
 
@@ -44,17 +45,18 @@ OS name: "windows 10", version: "10.0", arch: "amd64", family: "windows"
 
 ## Running the tests
 
-Explain how to run the automated tests for this system. Break down into which tests and what they do
+1. Within Eclipse right click on IMS-Starter-master
+2. Run as > JUnit Test
+3. Profit???
 
 ### Unit Tests 
 
-Explain what these tests test, why and how to run them
-
-
+There are 11 tests in this project, which cover 42.3% of the project
+I do not have a competent way of explaining them and will not attempt to
 
 ## Built With
 
-
+```Apache Maven 3.6.3```
 
 ## Versioning
 
